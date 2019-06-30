@@ -1,0 +1,8 @@
+CREATE TABLE Dare.Tasks (
+	`id` INTEGER PRIMARY KEY AUTO_INCREMENT,
+	`uuid` CHAR(36) NOT NULL UNIQUE KEY,
+	`version` BIGINT NOT NULL,
+	`name` TEXT NOT NULL,
+	`content` JSON NOT NULL
+ );
+

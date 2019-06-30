@@ -1,0 +1,2 @@
+DROP TABLE Dare.Tasks;
+

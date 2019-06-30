@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+service TaskService{
+    rpc GetAll(GetAllRequest) returns (GetAllResponse) {}
+    rpc Upsert(UpsertRequest) returns (UpsertResponse) {}
+    rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+}
+
+message GetAllRequest {
+}
+
+message GetAllResponse {
+    repeated Task tasks = 1;
+}
+
+message UpsertRequest {
+    Task task = 1;
+}
+
+message UpsertResponse {
+}
+
+message DeleteRequest {
+    string uuid = 1;
+}
+
+message DeleteResponse {
+}
+
+message Task {
+    string uuid = 1;
+    string name = 2;
+    string content = 3;
+    int64 version = 4;
+}

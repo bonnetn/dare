@@ -1,0 +1,13 @@
+{
+  "database": {
+    "username": "dare_api",
+    "password": "password",
+    "database": "Dare",
+    "host": "localhost:3306"
+  },
+  "redis": {
+    "host": "localhost:6379",
+    "password": "",
+    "db": 0
+  }
+}
