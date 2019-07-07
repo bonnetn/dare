@@ -32,9 +32,6 @@ In order to run this project you need `make`, `go`, `yarn` and `docker-compose`.
 In order to launch the dependencies (SQL server, Redis...) locally, run:
 > make docker-deps
 
-Migrate the database the the latest schema:
-> make migrate-db-up
-
 Launch the API server in your IDE, or with Make:
 > make run-api
 
