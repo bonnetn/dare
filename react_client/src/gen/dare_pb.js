@@ -918,9 +918,7 @@ proto.Task.prototype.toObject = function(opt_includeInstance) {
 proto.Task.toObject = function(includeInstance, msg) {
   var obj = {
     uuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    name: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    content: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    version: jspb.Message.getFieldWithDefault(msg, 4, 0)
+    name: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -965,14 +963,6 @@ proto.Task.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {string} */ (reader.readString());
       msg.setName(value);
       break;
-    case 3:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setContent(value);
-      break;
-    case 4:
-      var value = /** @type {number} */ (reader.readInt64());
-      msg.setVersion(value);
-      break;
     default:
       reader.skipField();
       break;
@@ -1016,20 +1006,6 @@ proto.Task.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
-  f = message.getContent();
-  if (f.length > 0) {
-    writer.writeString(
-      3,
-      f
-    );
-  }
-  f = message.getVersion();
-  if (f !== 0) {
-    writer.writeInt64(
-      4,
-      f
-    );
-  }
 };
 
 
@@ -1060,36 +1036,6 @@ proto.Task.prototype.getName = function() {
 /** @param {string} value */
 proto.Task.prototype.setName = function(value) {
   jspb.Message.setProto3StringField(this, 2, value);
-};
-
-
-/**
- * optional string content = 3;
- * @return {string}
- */
-proto.Task.prototype.getContent = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
-};
-
-
-/** @param {string} value */
-proto.Task.prototype.setContent = function(value) {
-  jspb.Message.setProto3StringField(this, 3, value);
-};
-
-
-/**
- * optional int64 version = 4;
- * @return {number}
- */
-proto.Task.prototype.getVersion = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
-};
-
-
-/** @param {number} value */
-proto.Task.prototype.setVersion = function(value) {
-  jspb.Message.setProto3IntField(this, 4, value);
 };
 
 

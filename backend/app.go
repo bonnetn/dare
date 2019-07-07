@@ -29,24 +29,22 @@ func main() {
 		logger.Fatal(err)
 	}
 
-	redisRepository := repository.NewRedisRepository(config.Redis)
 	metadataRepository := repository.NewMetadataRepository()
 
 	uuidController := uuid.NewUUIDController()
 
-	mariadb_repo, err := repository.NewMariadbRepository(config.Database, uuidController)
+	mongo_repo, err := repository.NewMongoDBRepository(config.MongoDB, uuidController)
 	if err != nil {
 		logger.Fatal(err)
 	}
-	defer mariadb_repo.Close()
-	taskController := task.NewController(mariadb_repo, uuidController)
+	defer mongo_repo.Close()
+
+
+	taskController := task.NewController(mongo_repo, uuidController)
 	server := handler.NewTaskServiceHandler(taskController, metadataRepository)
 
-	logger.Info("Waiting for redis to be live")
-	waitForAlive(redisRepository)
-
 	logger.Info("Waiting for the database to be live")
-	waitForAlive(mariadb_repo)
+	waitForAlive(mongo_repo)
 
 	logger.Info("Setting up GRPC")
 	setupGRPC(server)

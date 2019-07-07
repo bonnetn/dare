@@ -1,21 +1,12 @@
 version: "3.7"
 services:
-  redis:
-    image: redis
+  mongodb:
+    image: mongo
     ports:
-      - "6379:6379"
-  mariadb:
-    image: mariadb
-    restart: always
+      - "27017:27017"
     environment:
-      MYSQL_ROOT_PASSWORD: tototo
-    ports:
-      - "3306:3306"
-    volumes:
-      - type: bind
-        read_only: true
-        source: ./mariadb/
-        target: /docker-entrypoint-initdb.d/
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: tototo
   envoy:
     image: envoyproxy/envoy
     network_mode: host

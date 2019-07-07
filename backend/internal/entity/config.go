@@ -1,19 +1,13 @@
 package entity
 
 type Configuration struct {
-	Database DatabaseConfiguration `json:"database,required"`
-	Redis    RedisConfiguration    `json:"redis,required"`
+	MongoDB MongoDBConfiguration `json:"mongodb,required"`
 }
 
-type DatabaseConfiguration struct {
+type MongoDBConfiguration struct {
 	Host     string `json:"host,required"`
 	Database string `json:"database,required"`
 	Username string `json:"username,required"`
 	Password string `json:"password,required"`
 }
 
-type RedisConfiguration struct {
-	Host     string `json:"host,required"`
-	Password string `json:"password,required"`
-	DB       int    `json:"db,required"`
-}

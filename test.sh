@@ -1,8 +1,8 @@
  grpc_cli call 127.0.0.1:9090 TaskService.GetAll ""
  echo "===================================================================================================="
 
- grpc_cli call localhost:9090 TaskService.Upsert "task:{name: 'Task1', content: 'some content'}" -metadata "request-uuid: 1"
- grpc_cli call localhost:9090 TaskService.Upsert "task:{name: 'Task2', content: 'some other content'}" -metadata "request-uuid: 2"
+ grpc_cli call localhost:9090 TaskService.Upsert "task:{name: 'Task1'}" -metadata "request-uuid: 1"
+ grpc_cli call localhost:9090 TaskService.Upsert "task:{name: 'Task2'}" -metadata "request-uuid: 2"
  grpc_cli call 127.0.0.1:9090 TaskService.GetAll ""
  echo "===================================================================================================="
 
@@ -10,8 +10,8 @@
  grpc_cli call 127.0.0.1:9090 TaskService.GetAll ""
  echo "===================================================================================================="
 
- grpc_cli call localhost:9090 TaskService.Upsert "task:{uuid: 'bce1ce33-c05b-56de-9f13-af91eed8fbe1', version: 2, name: 'MODIFIED', content: 'MODIFIED'}" -metadata "request-uuid: 3"
- grpc_cli call localhost:9090 TaskService.Upsert "task:{uuid: 'bce1ce33-c05b-56de-9f13-af91eed8fbe1', version: 2, name: 'MODIFIED', content: 'MODIFIED'}" -metadata "request-uuid: 3"
+ grpc_cli call localhost:9090 TaskService.Upsert "task:{uuid: 'bce1ce33-c05b-56de-9f13-af91eed8fbe1', name: 'MODIFIED'}" -metadata "request-uuid: 3"
+ grpc_cli call localhost:9090 TaskService.Upsert "task:{uuid: 'bce1ce33-c05b-56de-9f13-af91eed8fbe1', name: 'MODIFIED'}" -metadata "request-uuid: 3"
  grpc_cli call 127.0.0.1:9090 TaskService.GetAll ""
  echo "===================================================================================================="
 

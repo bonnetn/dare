@@ -40,26 +40,26 @@ func (s taskServiceServer) GetAll(ctx context.Context, _ *pb.GetAllRequest) (*pb
 func (s taskServiceServer) Upsert(ctx context.Context, req *pb.UpsertRequest) (*pb.UpsertResponse, error) {
 	requestID, err := s.metadataRepository.GetRequestUUID(ctx)
 	if err != nil {
-		return nil, status.Error(codes.InvalidArgument, "request-id metadata is required")
+		return nil, status.Error(codes.InvalidArgument, "request-uuid metadata is required")
 	}
 
-	upsertRequest, err := mapper.MapUpsertRequestToCreationRequest(req, requestID)
+	task, err := mapper.MapUpsertRequestToEntity(req)
 	if err != nil {
-		logger.Warningf("TaskService createTask: %v", err)
+		logger.Warningf("TaskService Upsert: %v", err)
 		return nil, status.Error(codes.InvalidArgument, "bad request")
 	}
 
-	ok, err := s.controller.Upsert(ctx, upsertRequest);
+	ok, err := s.controller.Upsert(ctx, task, requestID);
 	if err != nil {
-		logger.Errorf("TaskService createTask: %v", err)
+		logger.Errorf("TaskService Upsert: %v", err)
 		return nil, status.Error(codes.Internal, "internal error")
 	}
 	if !ok {
-		logger.Warning("TaskService createTask failed to upsert")
+		logger.Warning("TaskService Upsert failed to upsert")
 		return nil, status.Error(codes.InvalidArgument, "invalid task")
 	}
 
-	logger.Info("TaskService createTask")
+	logger.Info("TaskService Upsert")
 	return &pb.UpsertResponse{}, nil
 }
 

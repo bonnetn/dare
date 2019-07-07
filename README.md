@@ -6,10 +6,8 @@ Description
 -----------
 
 #### API
-The API is built on top of [GRPC](https://grpc.io/) and stores objects in a [MariaDB](https://mariadb.org/) database.
+The API is built on top of [GRPC](https://grpc.io/) and stores objects in a [MongoDB](https://www.mongodb.com/) database.
 (It is basically a CRUD API)
-
-For this project, we chose not to use an ORM but rather use stored procedures.
 
 This API was built using the [Clean architecture](http://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
 

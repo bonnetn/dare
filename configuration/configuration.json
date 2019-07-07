@@ -1,4 +1,10 @@
 {
+  "mongodb": {
+    "username": "root",
+    "password": "tototo",
+    "database": "Dare",
+    "host": "localhost:27017"
+  },
   "database": {
     "username": "dare_api",
     "password": "password",
