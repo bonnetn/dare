@@ -1,3 +1,6 @@
+import {v4} from 'uuid';
+
+
 export const setLoading = (state) => ({
     type: 'SET_LOADING',
     state: state,
@@ -5,11 +8,7 @@ export const setLoading = (state) => ({
 
 export const setTasks = (tasks) => ({
     type: 'SET_TASKS',
-    tasks: tasks.map(({uuid, name, content}) => ({
-        uuid: uuid,
-        name: name,
-        content: content,
-    })),
+    tasks: tasks,
 });
 
 const proto = require('../gen/dare_grpc_web_pb.js');
@@ -18,26 +17,59 @@ const client = new proto.TaskServicePromiseClient('http://127.0.0.1:8080');
 function mapProtobufTaskToJS(task) {
     return {
         uuid: task.getUuid(),
+        version: task.getVersion(),
         name: task.getName(),
         content: task.getContent(),
     }
 }
 
-export function fetchTasks() {
-    // Thunk middleware knows how to handle functions.
-    // It passes the dispatch method as an argument to the function,
-    // thus making it able to dispatch actions itself.
+export function deleteTask(uuid) {
     return async function (dispatch) {
-        // First dispatch: the app state is updated to inform
-        // that the API call is starting.
+        const request = new proto.DeleteRequest();
+        request.setUuid(uuid);
 
+        await client.delete(request, {});
+        dispatch(fetchTasks());
+    }
+}
+
+export function editTask(uuid, version, name, content) {
+    return async function (dispatch) {
+        const task = new proto.Task();
+        task.setUuid(uuid);
+        task.setVersion(version + 1);
+        task.setName(name);
+        task.setContent(content);
+
+        const request = new proto.UpsertRequest();
+        request.setTask(task);
+
+        await client.upsert(request, {
+            'request-uuid': v4(),
+        });
+        dispatch(fetchTasks());
+    }
+}
+
+export function addTask(name, content) {
+    return async function (dispatch) {
+        const task = new proto.Task();
+        task.setName(name);
+        task.setContent(content);
+
+        const request = new proto.UpsertRequest();
+        request.setTask(task);
+
+        await client.upsert(request, {
+            'request-uuid': v4(),
+        });
+        dispatch(fetchTasks());
+    }
+}
+
+export function fetchTasks() {
+    return async function (dispatch) {
         dispatch(setLoading(true));
-
-        // The function called by the thunk middleware can return a value,
-        // that is passed on as the return value of the dispatch method.
-
-        // In this case, we return a promise to wait for.
-        // This is not required by thunk middleware, but it is convenient for us.
 
         const request = new proto.GetAllRequest();
         const response = await client.getAll(request, {});
@@ -46,7 +78,6 @@ export function fetchTasks() {
 
         dispatch(setTasks(taskList));
         dispatch(setLoading(false));
-
     }
 }
 

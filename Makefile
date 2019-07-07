@@ -21,15 +21,15 @@ docker-deps:
 
 .PHONY: migrate-db-down
 migrate-db-down:
-	@docker run -v $(CURDIR)/migration_db:/migrations --network host migrate/migrate -path=/migrations/ -database "mysql://root:tototo@tcp(localhost)/Dare" force 0 
+	docker run -v $(CURDIR)/migration_db:/migrations --network host migrate/migrate -path=/migrations/ -database "mysql://root:tototo@tcp(localhost)/Dare" down
 
 .PHONY: migrate-db-up
 migrate-db-up:
-	@docker run -v $(CURDIR)/migration_db:/migrations --network host migrate/migrate -path=/migrations/ -database "mysql://root:tototo@tcp(localhost)/Dare" force 0 
+	docker run -v $(CURDIR)/migration_db:/migrations --network host migrate/migrate -path=/migrations/ -database "mysql://root:tototo@tcp(localhost)/Dare" up
 
-.PHONY: migrate-db-reset
-migrate-db-reset:
-	@docker run -v $(CURDIR)/migration_db:/migrations --network host migrate/migrate -path=/migrations/ -database "mysql://root:tototo@tcp(localhost)/Dare" force 0 
+.PHONY: migrate-db-drop
+migrate-db-drop:
+	docker run -v $(CURDIR)/migration_db:/migrations --network host migrate/migrate -path=/migrations/ -database "mysql://root:tototo@tcp(localhost)/Dare" drop
 
 .PHONY: run-react
 run-react:

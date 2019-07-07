@@ -1,13 +1,13 @@
 import React from 'react';
-import './task-list.css';
-import {connect} from "react-redux";
+import TaskDisplay from "../task-display/task-display";
+import PropTypes from 'prop-types';
 
 
 class TaskList extends React.Component {
     render() {
         const taskList = this.props.tasks.map((task) =>
             <li key={task.uuid}>
-                {task.name}
+                <TaskDisplay task={task}/>
             </li>
         );
         return (
@@ -18,15 +18,11 @@ class TaskList extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        tasks: state.tasks,
-        loading: state.loading,
-    };
+TaskList.propTypes = {
+    tasks: PropTypes.arrayOf(PropTypes.shape({
+        uuid: PropTypes.string.isRequired,
+    })).isRequired,
 };
 
-export default connect(
-    mapStateToProps,
-    null,
-)(TaskList);
+export default TaskList;
 
