@@ -40,17 +40,3 @@ Launch the API server in your IDE, or with Make:
 
 In another terminal, launch the React client.
 > make run-react
-
-Database schema migration 
--------------------
-
-In order to migrate a schema in the DB, add your migration scripts in the `migrate_db` folder. 
-We are using [golang-migrate/migrate](https://github.com/golang-migrate/migrate).
-
-To upgrade the DB run:
-> make migrate-db-up
-
-Then, make sure your revert migration works (`*.down.sql`) by reverting the database to its initial state:
-> make migrate-db-down
-
-Then you can safely `make migrate-db-up` again.

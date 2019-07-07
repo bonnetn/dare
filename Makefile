@@ -19,18 +19,6 @@ docker-deps:
 	@docker-compose rm -f
 	docker-compose up --build --force-recreate -d
 
-.PHONY: migrate-db-down
-migrate-db-down:
-	docker run -v $(CURDIR)/migration_db:/migrations --network host migrate/migrate -path=/migrations/ -database "mysql://root:tototo@tcp(localhost)/Dare" down
-
-.PHONY: migrate-db-up
-migrate-db-up:
-	docker run -v $(CURDIR)/migration_db:/migrations --network host migrate/migrate -path=/migrations/ -database "mysql://root:tototo@tcp(localhost)/Dare" up
-
-.PHONY: migrate-db-drop
-migrate-db-drop:
-	docker run -v $(CURDIR)/migration_db:/migrations --network host migrate/migrate -path=/migrations/ -database "mysql://root:tototo@tcp(localhost)/Dare" drop
-
 .PHONY: run-react
 run-react:
 	yarn --cwd react_client start
