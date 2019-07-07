@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import TaskViewer from "../presentation/task-viewer/task-viewer";
-import {editTask, fetchTasks} from "../../store/actions";
+import {fetchTasks} from "../../store/actions";
 
 
 const mapStateToProps = state => {
@@ -11,11 +11,7 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = (dispatch) => {
     dispatch(fetchTasks());
-    return {
-        addTask: (name, content) => {
-            dispatch(editTask(name, content))
-        },
-    }
+    return {}
 };
 
 

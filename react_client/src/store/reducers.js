@@ -13,11 +13,9 @@ export const rootReducer = (state = EMPTY, action) => {
 
         case 'SET_TASKS':
             const tasks = action.tasks.map(
-                ({uuid, name, content, version}) => ({
+                ({uuid, name}) => ({
                     uuid: uuid,
                     name: name,
-                    content: content,
-                    version: version,
                 })
             );
             return {

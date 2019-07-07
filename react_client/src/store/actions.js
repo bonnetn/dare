@@ -17,9 +17,7 @@ const client = new proto.TaskServicePromiseClient('http://127.0.0.1:8080');
 function mapProtobufTaskToJS(task) {
     return {
         uuid: task.getUuid(),
-        version: task.getVersion(),
         name: task.getName(),
-        content: task.getContent(),
     }
 }
 
@@ -33,16 +31,14 @@ export function deleteTask(uuid) {
     }
 }
 
-export function editTask(uuid, version, name, content) {
+export function editTask(task) {
     return async function (dispatch) {
-        const task = new proto.Task();
-        task.setUuid(uuid);
-        task.setVersion(version + 1);
-        task.setName(name);
-        task.setContent(content);
+        const pbTask = new proto.Task();
+        pbTask.setUuid(task.uuid);
+        pbTask.setName(task.name);
 
         const request = new proto.UpsertRequest();
-        request.setTask(task);
+        request.setTask(pbTask);
 
         await client.upsert(request, {
             'request-uuid': v4(),
@@ -51,14 +47,13 @@ export function editTask(uuid, version, name, content) {
     }
 }
 
-export function addTask(name, content) {
+export function addTask(task) {
     return async function (dispatch) {
-        const task = new proto.Task();
-        task.setName(name);
-        task.setContent(content);
+        const pbTask = new proto.Task();
+        pbTask.setName(task.name);
 
         const request = new proto.UpsertRequest();
-        request.setTask(task);
+        request.setTask(pbTask);
 
         await client.upsert(request, {
             'request-uuid': v4(),

@@ -11,13 +11,13 @@ class EditTaskFormBase extends React.Component {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
     }
-    onSubmit({name, content}) {
-        const task = this.props.task;
-        this.props.editTask(task.uuid, task.version, name, content);
+
+    onSubmit(task) {
+        this.props.editTask(task);
     }
 
     render() {
-        return <TaskForm name={this.props.task.name} content={this.props.task.content} onSubmit={this.onSubmit}/>
+        return <TaskForm task={this.props.task} onSubmit={this.onSubmit}/>
     }
 }
 
@@ -25,16 +25,14 @@ EditTaskFormBase.propTypes = {
     editTask: PropTypes.func.isRequired,
     task: PropTypes.shape({
         uuid: PropTypes.string.isRequired,
-        version: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
-        content: PropTypes.string.isRequired,
     }).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        editTask: (uuid, version, name, content) => {
-            dispatch(editTask(uuid, version, name, content))
+        editTask: (task) => {
+            dispatch(editTask(task))
         },
     }
 };

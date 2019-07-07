@@ -5,13 +5,16 @@ import TaskForm from "../presentation/task-form/task-form";
 import {addTask} from "../../store/actions";
 
 const AddTaskFormBase = ({addTask}) => {
-    return <TaskForm name='lol' content='test' onSubmit={addTask}/>
+    const task = {
+        name: 'name',
+    };
+    return <TaskForm task={task} onSubmit={addTask}/>
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addTask: ({name, content}) => {
-            dispatch(addTask(name, content))
+        addTask: (task) => {
+            dispatch(addTask(task))
         },
     }
 };

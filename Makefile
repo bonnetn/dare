@@ -24,5 +24,5 @@ run-react:
 	yarn --cwd react_client start
 
 .PHONY: run-api
-run-api: migrate-db-up
+run-api:
 	go run ./backend 

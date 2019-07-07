@@ -5,7 +5,7 @@ import DeleteTaskForm from "../../container/delete-task-form";
 class TaskDisplay extends React.Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             show: false,
         };
@@ -26,11 +26,11 @@ class TaskDisplay extends React.Component {
             return <div>
                 <button onClick={this.toggleEdit}>EDIT</button>
                 <DeleteTaskForm uuid={task.uuid}/>
-                {task.name} : {task.content}
+                {task.name}
             </div>;
         } else {
             return <span>
-            <EditTaskForm task={task}/>
+            <EditTaskForm task={this.props.task}/>
         </span>
         }
     };
